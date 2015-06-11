@@ -20,7 +20,7 @@
 (function () {
   'use strict';
 
-  var value = 0.00;
+  var firstType = true;
 
   var querySelector = document.querySelector.bind(document);
 
@@ -29,13 +29,17 @@
   var appbarElement = querySelector('.app-bar');
   var menuBtn = querySelector('.menu');
   var main = querySelector('main');
+
   var valueLabel = document.getElementById("value");
-  var numberButtons = document.getElementsByClassName("number")
+  var historyLabel = document.getElementById("history");
+  var numberButtons = document.getElementsByClassName("number");
+  var operationButtons = document.getElementsByClassName("operation");
+  var enterButton = querySelector('.enter');
+  var clearButton = querySelector('.clear');
 
   function closeMenu() {
     body.classList.remove('open');
     appbarElement.classList.remove('open');
-    //navdrawerContainer.classList.remove('open');
   }
 
   function toggleMenu() {
@@ -45,18 +49,46 @@
     navdrawerContainer.classList.add('opened');
   }
 
-  function logIt() {
-    console.log(parseFloat(this.innerHTML));
-    value += parseFloat(this.innerHTML);
-    valueLabel.innerHTML = value;
+  function numberButtonAction() {
+    if (firstType == true) {
+      valueLabel.innerHTML = this.innerHTML;
+      firstType = false;
+    } else {
+      valueLabel.innerHTML += this.innerHTML;
+    }
+    historyLabel.innerHTML += this.innerHTML;
+  }
+
+  function operationButtonAction() {
+    if (firstType == false) {
+      valueLabel.innerHTML += this.innerHTML;
+      historyLabel.innerHTML += this.innerHTML;
+    } else {
+      valueLabel.innerHTML = "Error";
+    }
+  }
+
+  function evaluate() {
+    valueLabel.innerHTML = eval(valueLabel.innerHTML);
+    historyLabel.innerHTML = historyLabel.innerHTML + " = " + eval(valueLabel.innerHTML);
+  }
+
+  function clear() {
+    valueLabel.innerHTML = 0.00;
+    firstType = true;
   }
 
   main.addEventListener('click', closeMenu);
   menuBtn.addEventListener('click', toggleMenu);
-
+  enterButton.addEventListener('click', evaluate);
+  clearButton.addEventListener('click', clear);
   for (var i = 0; i < numberButtons.length; i++) {
-    numberButtons[i].addEventListener('click', logIt);
+    numberButtons[i].addEventListener('click', numberButtonAction);
   }
+  for (var i = 0; i < operationButtons.length; i++) {
+    operationButtons[i].addEventListener('click', operationButtonAction);
+  }
+
   // navdrawerContainer.addEventListener('click', function (event) {
   //   if (event.target.nodeName === 'A' || event.target.nodeName === 'LI') {
   //     closeMenu();

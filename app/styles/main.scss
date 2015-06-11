@@ -372,10 +372,16 @@ main {
 }
 
 #home-content {
+
+  @media only screen and (max-width: 800px) {
+    width: 100%;
+    padding: 0;
+  }
+
   .valueDiv {
     background-color: lightGray;
     overflow: hidden;
-    margin-top: 100px;
+    margin-top: 100px;  
   }
   #value {
     padding: 30px 20px 30px 0;
@@ -385,17 +391,41 @@ main {
     overflow: hidden;
   }
 
+  #history {
+    float: left;
+    padding-top: 0;
+    margin: 5px;
+  }
+
   .calc-actions {
     margin: 0;
-
+    @media only screen and (min-width: 800px) {
+      display: table;
+    }
     tr {
       height: 120px;
       border-bottom: 3px solid white;
+
+      @media only screen and (max-width: 540px) {
+        height: 80px;
+      }
+
       th {
         border-right: 3px solid white;
         padding: 0;
         width: 25%;
         font-size: 42px;
+
+        @media only screen and (max-width: 800px) {
+          font-weight: 100;
+          display: table-cell;
+        }
+        @media only screen and (max-width: 540px) {
+          font-size: 34px;
+        }
+        @media only screen and (max-width: 400px) {
+          font-size: 26px;
+        }
       }
       .th-last {
         border: none;
