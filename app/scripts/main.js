@@ -88,10 +88,5 @@
   for (var i = 0; i < operationButtons.length; i++) {
     operationButtons[i].addEventListener('click', operationButtonAction);
   }
-
-  // navdrawerContainer.addEventListener('click', function (event) {
-  //   if (event.target.nodeName === 'A' || event.target.nodeName === 'LI') {
-  //     closeMenu();
-  //   }
-  // });
+  
 })();
